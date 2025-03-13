@@ -687,6 +687,9 @@ sealed trait ZIO[-R, +E, +A]
   final def flipWith[R1, A1, E1](f: ZIO[R, A, E] => ZIO[R1, A1, E1])(implicit trace: Trace): ZIO[R1, E1, A1] =
     f(self.flip).flip
 
+
+ // check this
+
   /**
    * Folds over the failure value or the success value to yield an effect that
    * does not fail, but succeeds with the value returned by the left or right
@@ -711,6 +714,12 @@ sealed trait ZIO[-R, +E, +A]
     success: A => ZIO[R1, E2, B]
   )(implicit trace: Trace): ZIO[R1, E2, B] =
     ZIO.FoldZIO(trace, self, success, failure)
+
+
+//  This is working
+//
+//  final def fold[B](failure: E => B, success: A => B)(implicit ev: CanFail[E], trace: Trace): URIO[R, B] =
+//    foldZIO(e => Exit.succeed(failure(e)), a => Exit.succeed(success(a)))
 
   /**
    * A version of `foldZIO` that gives you the trace of the error.
