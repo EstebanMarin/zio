@@ -687,8 +687,7 @@ sealed trait ZIO[-R, +E, +A]
   final def flipWith[R1, A1, E1](f: ZIO[R, A, E] => ZIO[R1, A1, E1])(implicit trace: Trace): ZIO[R1, E1, A1] =
     f(self.flip).flip
 
-
- // check this
+  // check this
 
   /**
    * Folds over the failure value or the success value to yield an effect that
@@ -714,7 +713,6 @@ sealed trait ZIO[-R, +E, +A]
     success: A => ZIO[R1, E2, B]
   )(implicit trace: Trace): ZIO[R1, E2, B] =
     ZIO.FoldZIO(trace, self, success, failure)
-
 
 //  This is working
 //
