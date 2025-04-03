@@ -702,8 +702,7 @@ sealed trait ZIO[-R, +E, +A]
    * failure except external interruption.
    */
   final def foldCause[B](failure: Cause[E] => B, success: A => B)(implicit trace: Trace): URIO[R, B] =
-    // foldCauseZIO(c => Exit.succeed(failure(c)), a => Exit.succeed(success(a)))
-    foldCauseZIO(c => Exit.succeed(c.failureOrCause.fold(???, ???)), a => Exit.succeed(success(a)))
+    foldCauseZIO(c => Exit.succeed(c.failureOrCause.fold(???, failure(_))), a => Exit.succeed(success(a)))
 
   /**
    * A more powerful version of `foldZIO` that allows recovering from any kind
