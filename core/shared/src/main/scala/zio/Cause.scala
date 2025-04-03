@@ -709,6 +709,7 @@ sealed abstract class Cause[+E] extends Product with Serializable { self =>
           case throwable: Throwable => unifyThrowable(throwable, fail.trace)
           case value =>
             val className = if (value == null) "" else value.getClass.getName
+            //Maybe here?
             val message   = if (value == null) "null" else value.toString
             List(Unified(fail.trace.fiberId, className, message, fail.trace.toJava))
         }
