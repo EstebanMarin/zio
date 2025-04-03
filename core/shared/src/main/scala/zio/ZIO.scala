@@ -715,11 +715,6 @@ sealed trait ZIO[-R, +E, +A]
   )(implicit trace: Trace): ZIO[R1, E2, B] =
     ZIO.FoldZIO(trace, self, success, failure)
 
-//  This is working
-//
-//  final def fold[B](failure: E => B, success: A => B)(implicit ev: CanFail[E], trace: Trace): URIO[R, B] =
-//    foldZIO(e => Exit.succeed(failure(e)), a => Exit.succeed(success(a)))
-
   /**
    * A version of `foldZIO` that gives you the trace of the error.
    */
